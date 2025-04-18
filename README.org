@@ -1,0 +1,72 @@
+#+TITLE: DIN 5009 Spelling Alphabet Conversion for Emacs
+
+* Purpose
+
+This package provides functions to convert text to the German spelling alphabet defined by DIN 5009 (e.g., "A" becomes "Anton") and back again within Emacs.
+
+* Features
+
+- Convert entire strings to DIN 5009 representation (~din5009-string~).
+- Convert DIN 5009 phonetic strings back to standard German spelling (~de5009-string~).
+- Interactive command ~din5009-region~ to convert the selected region to the DIN 5009 spelling alphabet.
+- Interactive command ~de5009-region~ to convert text formatted according to the DIN 5009 spelling alphabet back to regular text in the selected region.
+- Handles standard letters, numbers, umlauts, Eszett, common punctuation, and the digraph "ch" and trigraph "sch".
+- Customizable separator string (default: "-") via ~din5009-separator~.
+- Includes a test runner command ~din5009-run-tests~.
+
+* Installation
+
+**Manual Installation:**
+
+1. Clone this repository or download ~5009-region.el~.
+2. Add the directory containing ~5009-region.el~ to your Emacs ~load-path~.
+3. Add ~(require '5009-region)~ to your Emacs configuration file (e.g., ~init.el~).
+
+* Usage
+
+Load the package using ~(require '5009-region)~.
+
+You can customize the separator used between words:
+#+begin_src emacs-lisp
+(setq din5009-separator " ") ; Use space as separator
+#+end_src
+
+**Examples:**
+
+#+begin_src emacs-lisp
+;; Convert a string
+(din5009-string "Hallo Welt!")
+;; => "Heinrich-Anton-Ludwig-Ludwig-Otto Welt Ausrufezeichen"
+
+(din5009-string "Ökonomie für ch/sch")
+;; => "Ökonom-Kaufmann-Otto-Nordpol-Otto-Martha-Ida-Emil für Charlotte Schrägstrich Schule"
+
+(din5009-string "Text mit 123")
+;; => "Theodor-Emil-Xanthippe-Theodor mit Eins-Zwei-Drei"
+
+;; Convert back from DIN 5009
+(de5009-string "Heinrich-Anton-Ludwig-Ludwig-Otto Welt Ausrufezeichen")
+;; => "hallo welt!"
+
+(de5009-string "Ökonom-Kaufmann-Otto-Nordpol-Otto-Martha-Ida-Emil für Charlotte Schrägstrich Schule")
+;; => "ökonomie für ch/sch"
+
+(de5009-string "Theodor-Emil-Xanthippe-Theodor mit Eins-Zwei-Drei")
+;; => "text mit 123"
+
+;; Using region commands
+;; Select text in a buffer and run:
+M-x din5009-region
+M-x de5009-region
+#+end_src
+
+To run the included tests:
+~M-x din5009-run-tests~
+
+* License
+
+This package is distributed under the terms of the GNU General Public License version 3 or later (GPL-3.0-or-later).
+
+* Contributing
+
+Contributions are welcome! Please ensure any pull requests include tests.
